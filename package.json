@@ -14,6 +14,14 @@
       "type": "git",
       "url": "git://github.com/door21/homebridge-mqtt-occupancy"
   },
+  "dependencies":
+    {
+      "mqtt": "2.0.1"
+    },
   "author": "code@door21.net",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "engines": {
+     "node": ">=0.12.0",
+     "homebridge": ">=0.2.0"
+ }
 }
