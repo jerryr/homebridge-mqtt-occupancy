@@ -26,21 +26,24 @@ function MqttOccupancySensor(log, config) {
   this.service = new Service.OccupancySensor(this.name);
   this.service.getCharacteristic(Characteristic.OccupancyDetected)
           .on('get', this.getStatus.bind(this));
-   this.status = Characteristic.OccupancyDetected.OCCUPANCY_NOT_DETECTED;
+  this.status = Characteristic.OccupancyDetected.OCCUPANCY_NOT_DETECTED;
   this.client = mqtt.connect(this.url, this.options);
   var that = this;
   this.client.on('error', function () {
-       that.log('Error event on MQTT');
+       that.log.error('Error event on MQTT');
    });
   this.client.on('message', function(topic, message) {
     var status = message.toString();
-    that.log("Received a message: " + status);
+    that.log.debug("Received a message: " + status);
     that.status = (status == "occupied"? Characteristic.OccupancyDetected.OCCUPANCY_DETECTED
                 : Characteristic.OccupancyDetected.OCCUPANCY_NOT_DETECTED);
     that.service.getCharacteristic(Characteristic.OccupancyDetected)
                 .setValue(that.status, undefined, 'fromSetValue');
   });
-  this.client.subscribe(this.topic);
+  this.client.on('connect', function(){
+    that.log.info("Connected successfully to MQTT broker");
+    that.client.subscribe(that.topic);
+  });
 }
 module.exports = function(homebridge) {
   Service = homebridge.hap.Service;
