@@ -1,0 +1,19 @@
+{
+  "name": "homebridge-mqtt-occupancy",
+  "version": "1.0.0",
+  "description": "Homebridge plugin for Occupancy Sensor sending status over MQTT",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mqtt",
+    "homebridge-plugin"
+  ],
+  "repository": {
+      "type": "git",
+      "url": "git://github.com/door21/homebridge-mqtt-occupancy"
+  },
+  "author": "code@door21.net",
+  "license": "Apache-2.0"
+}
